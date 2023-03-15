@@ -1,1 +1,1 @@
-export const DomainUrl = "https://mytask.techcart.live";
+export const DomainUrl = "https://mytask.techcart.live/";
