@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
+import { DomainUrl } from "./Domain";
 
 const StarredMails = () => {
   return (
@@ -16,7 +17,7 @@ const StarredMail = () => {
     getMails();
   }, []);
   const getMails = () => {
-    let endpoint = "http://127.0.0.1:8000/api/starred";
+    let endpoint = DomainUrl + "api/starred";
     axios.get(endpoint).then((res) => {
       setStarredMailData(res.data);
     });

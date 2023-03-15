@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { AiOutlineMail, AiOutlineMenu, AiOutlineStar } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
+import { DomainUrl } from "./Domain";
 const AllMails = () => {
   const [mailData, setMailData] = useState([]);
   const [pageNo, setPageNo] = useState(1);
@@ -14,7 +15,7 @@ const AllMails = () => {
 
   const getMails = () => {
     setLoad(true);
-    let endpoint = `http://127.0.0.1:8000/api/mails?page=${pageNo}`;
+    let endpoint = DomainUrl + `api/mails?page=${pageNo}`;
 
     axios.get(endpoint).then((res) => {
       setMailData(res.data);
@@ -79,7 +80,7 @@ const Mail = ({ mail }) => {
   const [starred, setStarred] = useState(mail.starred);
   const [load, setLoad] = useState(false);
   const handleStars = () => {
-    let endpoint = `http://127.0.0.1:8000/api/mails/${mail.id}`;
+    let endpoint = DomainUrl + `api/mails/${mail.id}`;
     let data = {
       id: mail.id,
       receiver: mail.receiver,
@@ -94,7 +95,6 @@ const Mail = ({ mail }) => {
   };
   return (
     <>
-     
       <div className="flex items-center space-x-3 border-b hover:bg-slate-600 border-slate-700  px-2 py-1">
         <div onClick={handleStars}>
           {starred ? <AiOutlineStar color="yellow" /> : <AiOutlineStar />}{" "}

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import jwt from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { DomainUrl } from "../components/Domain";
 
 const AuthContext = React.createContext();
 
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const login = (email, password) => {
-    let endpoint = "http://127.0.0.1:8000/api/login";
+    let endpoint = DomainUrl + "api/login";
     let data = {
       email: email,
       password: password,
@@ -51,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = (name, email, password) => {
-    let endpoint = "http://127.0.0.1:8000/api/register";
+    let endpoint = DomainUrl + "api/register";
     let data = {
       name: name,
       email: email,
@@ -79,7 +80,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    let endpoint = "http://127.0.0.1:8000/api/logout";
+    let endpoint = DomainUrl + "api/logout";
     axios.post(endpoint).then((res) => {
       localStorage.removeItem("user");
       localStorage.setItem("isAuthenticated", false);
