@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { Fragment, useEffect, useState } from "react";
 
 const StarredMails = () => {
   return (
@@ -9,13 +10,32 @@ const StarredMails = () => {
 };
 
 const StarredMail = () => {
+  const [starredMailData, setStarredMailData] = useState([]);
+
+  useEffect(() => {
+    getMails();
+  }, []);
+  const getMails = () => {
+    let endpoint = "http://127.0.0.1:8000/api/starred";
+    axios.get(endpoint).then((res) => {
+      setStarredMailData(res.data);
+    });
+  };
   return (
-    <div className="flex items-center space-x-3 border-b hover:bg-slate-600 border-slate-700  px-2 py-1">
-      <div className="font-bold">Name</div>
-      <div className="text-ellipsis overflow-hidden whitespace-nowrap">
-        Messagefha skfhaksfhah fkahfah flkhfshf hahklahkl
-      </div>
-    </div>
+    <>
+      {starredMailData?.map((starredmail, index) => (
+        <Fragment key={starredmail.id}>
+          <div className="flex items-center space-x-3 border-b hover:bg-slate-600 border-slate-700  px-2 py-1">
+            <div className="font-mono text-ellipsis overflow-hidden whitespace-nowrap w-1/3">
+              {starredmail.receiver}
+            </div>
+            <div className="text-ellipsis overflow-hidden whitespace-nowrap">
+              {starredmail.subject}
+            </div>
+          </div>
+        </Fragment>
+      ))}
+    </>
   );
 };
 
